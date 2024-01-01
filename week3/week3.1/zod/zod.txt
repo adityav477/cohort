@@ -1,0 +1,2 @@
+we check the format of inputs given by the user to validate the things this can be done manually as well as through 
+various libraries one of such libraries is zod
