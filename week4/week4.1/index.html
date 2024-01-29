@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>debounce</title>
+</head>
+
+<script>
+    //for optimizing the debounce
+    let timeout;
+    function debouncepopulateDiv() {
+        //this is my code to apply debounce
+        // let count = 0;
+        // if (count === 0) {
+        //     count = 1;
+        //     setTimeout(() => {
+        //         populateDiv();
+        //     }, 100);
+        // }
+        //hkirat's
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            populateDiv();
+        }, 1000 );
+    }
+    async function populateDiv() {
+        const a = document.getElementById("firstNumber").value;
+        const b = document.getElementById("secondNumber").value;
+
+        const res = await fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b);
+        const responsetext = await res.text();
+        document.getElementById("finalSum").innerHTML = responsetext;
+    }
+</script>
+
+<body>
+    <input oninput="debouncepopulateDiv()" type="text" id="firstNumber" placeholder="First number"><br></br>
+    <input oninput="debouncepopulateDiv()" type="text" id="secondNumber" placeholder="Second number"><br></br>
+    <!-- <button onclick="populateDiv()">Add</button> -->
+    <div id="finalSum"></div>
+</body>
+
+</html>
+
+<!-- 
+debounce - is a concept in which when a user types or makes changes in any input it avoids sending the backend call 
+after every cahnge that is after a new character is typed and saves a number of backend calls for example in amazon 
+we can it waits for few second and then recomments us with the suggestions in search bar
+
+cleartimeout - settimeout() sends a id that is used by cleartimeout to nullifiy the settimeout with an id timeout
+ -->

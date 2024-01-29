@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to-do</title>
+</head>
+<script>
+    // function addTodo() {
+    //     const title = document.getElementById("title").value;
+    //     const description = document.getElementById("description").value;
+    //long method
+    // let oldHtml = document.getElementById("container").innerHTML;
+    // console.log(oldHtml);
+    // document.getElementById("container").innerHTML = oldHtml + `
+    // <div>
+    // <div>${title}</div>
+    // <div>${description}</div>
+    // <button> Mark as done </button>
+    // </div>`
+    // }
+
+    //id for marking all the child elements i.e, todo tasks
+    let id = 1;
+
+    //marksAsDone
+    function marksAsDone(todoid) {
+        const parent = document.getElementById(todoid);
+        console.log(parent)
+        parent.children[2].innerHTML = "Done";
+    }
+    //Id for giving id to the items in the todo list
+    function createChild(title, description) {
+
+        //creating the main div
+        const child = document.createElement("div");
+
+        //creating the first div
+        const firstGrandchild = document.createElement("div");
+        //assigning the title as innerhtml
+        firstGrandchild.innerHTML = title;
+
+        //creating the second div
+        const secondGrandchild = document.createElement("div");
+        //assigning the description as innerthml
+        secondGrandchild.innerHTML = description;
+
+        //creating the button as third div
+        const thirdGrandchild = document.createElement("button");
+        thirdGrandchild.innerHTML = "Mark as done";
+        //adding onclick to the button
+        thirdGrandchild.setAttribute("onclick", `marksAsDone(${id})`);
+
+        //appending all the grandchild elements to the child div
+        child.appendChild(firstGrandchild);
+        child.appendChild(secondGrandchild);
+        child.appendChild(thirdGrandchild);
+
+        //setting the id of child
+        child.setAttribute("id", id);
+        id++;
+        return child;
+    }
+
+    function addTodo() {
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+
+        const container = document.getElementById("container");
+        container.appendChild(createChild(title, description));
+    }
+</script>
+
+<body>
+    <div>
+        <input id="title" type="text" placeholder="title"><br></br>
+        <input id="description" type="text" placeholder="description"><br></br>
+        <button onclick="addTodo()">Add Todo</button>
+        <div id="container"></div>
+    </div>
+</body>
+<script>
+    //for pre react days in which if we get todo data from server then how do we render it on the frontend
+    function updateState(state) {
+        const parent = document.getElementById("container");
+        parent.innerHTML = "";
+        state.forEach(element => {
+            const child = createChild(element.title, element.description, state.id);
+            parrent.appendChild(child);
+        });
+    }
+
+    //for fetching data from the backend on set intervals
+    window.setInterval(async () => {
+        const res = await fetch("https://sum-server.100xdevs.com/todos");
+        const json = await res.json();
+        updateState(json.todos); 
+    }, 4000);
+</script>
+
+</html>

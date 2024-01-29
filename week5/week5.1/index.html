@@ -1,0 +1,43 @@
+<!-- //how does react works under hood -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react-underhood</title>
+</head>
+
+<body>
+    <div id="btnParent"></div>
+</body>
+<script>
+    let state = {
+        count: 0,
+    }
+
+    function onbuttonPress() {
+        state.count++;
+        buttonRerender()
+    }
+    function buttonRerender() {
+        const btnParent = document.getElementById("btnParent");
+        btnParent.innerHTML = "";
+        const component = buttonComponent(state.count);
+        btnParent.appendChild(component);
+    }
+
+    function buttonComponent(count) {
+        const btnParent = document.getElementById("btnParent");
+        const btn = document.createElement("button");
+        btn.innerHTML = `Counter ${count}`;
+        btn.setAttribute("onclick", "onbuttonPress()");
+        btnParent.appendChild(btn);
+    }
+
+    buttonRerender();
+
+
+</script>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="index.js"></script>
+    <title>Document</title>
+</head>
+<script>
+
+
+    let timeout;
+    function debouncegetCp() {
+        clearTimeout(timeout);
+        setTimeout(() => {
+            getCp();
+        }, 1000);
+    }
+
+    async function getCp() {
+        let principal = document.getElementById("principal");
+        let rate = document.getElementById("rate");
+        let time = document.getElementById("time");
+        let interest = document.getElementById("interest");
+        let total = document.getElementById("total");
+
+        const response = await fetch("http://localhost:3000?principal=" + principal + "&rate=" + rate + "&time=" + time);
+        const finalSum = await response.text();
+        document.getElementById("total").innerHTML = finalSum.total;
+        document.getElementById("interest").innerHTML = finalSum.interest;
+    }
+</script>
+
+<body>
+    Principal:
+    <input oninput="debouncegetCp()" type="text" name="principal" id="principal"> <br></br>
+    Rate:
+    <input oninput="debouncegetCp()" type="text" name="rate" id="rate"> <br></br>
+    Time:
+    <input oninput="debouncegetCp()" type="text" name="time" id="time"> <br></br>
+    Interest:
+    <div id="interest"></div><br></br>
+    Total:
+    <div id="total"></div>
+</body>
+
+</html>
