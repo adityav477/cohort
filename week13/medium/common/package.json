@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "zod": "^3.22.4"
+  },
+  "name": "@adimanav/common",
+  "version": "1.0.0",
+  "main": "./build/",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
