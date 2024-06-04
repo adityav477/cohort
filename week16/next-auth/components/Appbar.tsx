@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 
 export function Appbar() {
   const session = useSession();
-  console.log("session is " + session);
+  console.log(session);
 
   return (
     <div className="flex justify-between items-center p-2 m-2">

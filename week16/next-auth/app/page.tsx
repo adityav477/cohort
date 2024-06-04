@@ -1,8 +1,11 @@
 "use client"
 import Image from "next/image";
-import { signIn, signOut } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
+
 
 export default function Home() {
+  const session = useSession();
+  console.log(session);
   return (
     <div className="flex justify-center items-center h-screen gap-10">
       <button onClick={() => {
