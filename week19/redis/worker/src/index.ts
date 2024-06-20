@@ -4,12 +4,12 @@ const client = createClient();
 async function processSubmissions(submissions: string) {
   const { problemId, code, language } = JSON.parse(submissions);
 
-  console.log(`Processing submission for problemId ${problemId}...`);
-  console.log(`Code: ${code}`);
-  console.log(`Language: ${language}`);
+  console.log(`Processing submission for problemId ${problemId}... w`);
+  console.log(`Code: ${code} w`);
+  console.log(`Language: ${language} w`);
 
   await new Promise(resolve => setTimeout(resolve, 1000));
-  console.log(`Finished processing submission for problemId ${problemId}.`);
+  console.log(`Finished processing submission for problemId in worker ${problemId}.`);
 
 }
 startRedis();
@@ -22,13 +22,14 @@ async function startRedis() {
       try {
         const submissions = await client.brPop("problems", 0);
         // @ts-ignore
-        processSubmissions(submissions.element);
+        await processSubmissions(submissions.element);
       } catch (error) {
-        console.log("error while doing submissions", error);
+        console.log("error while doing submissions in worker", error);
       }
     }
+
   } catch (error) {
-    console.log("Error in starting redis");
+    console.log("Error in starting redis worker");
   }
 }
 
